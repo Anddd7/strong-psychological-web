@@ -31,6 +31,9 @@ function App() {
   const [rows, setRows] = useState(scenarios);
 
   function onChange(rowk, columnk, value) {
+    if (value > 5) {
+      return;
+    }
     setRows((rows) =>
       rows.map((row, index) => {
         if (index == rowk) {
@@ -46,32 +49,42 @@ function App() {
       })
     );
   }
+  function onVisibleChange(currentRow) {
+    setRows((rows) =>
+      rows.map((row) => {
+        if (row.key == currentRow.key) {
+          return {
+            ...row,
+            visible: !row.visible,
+          };
+        }
+        return row;
+      })
+    );
+  }
 
   return (
     <div className="chart-app">
       <div className="inputs">
         <table className="table">
           <thead>
-            <tr className="header">
-              <th className="column">类别</th>
-              {renderHeaders(headers)}
-              <th className="column">总计</th>
-            </tr>
+            <tr className="header">{renderHeaders(headers)}</tr>
           </thead>
           <tbody>{renderRows(rows, headers)}</tbody>
         </table>
       </div>
       <div className="result">
-        <h1>幸福盘</h1>
-        <div>
-          <p>让我们一起打开人生的幸福盘</p>
-          <p>寻找幸福, 创造幸福, 开启人生的幸福之旅!</p>
-        </div>
+        <h2>幸福盘</h2>
+        <p>
+          让我们一起打开人生的幸福盘
+          <br />
+          寻找幸福, 创造幸福, 开启人生的幸福之旅!
+        </p>
         <Radar
-          width={500}
-          height={500}
-          padding={70}
-          domainMax={10}
+          width={400}
+          height={400}
+          padding={40}
+          domainMax={5}
           highlighted={null}
           onHover={(point) => {
             if (point) {
@@ -82,7 +95,7 @@ function App() {
           }}
           data={{
             variables: headers,
-            sets: rows,
+            sets: rows.filter((row) => row.visible),
           }}
         />
       </div>
@@ -90,7 +103,13 @@ function App() {
   );
 
   function renderHeaders(headers) {
-    return headers.map(renderHeader);
+    return (
+      <>
+        <th className="column">类别</th>
+        {headers.map(renderHeader)}
+        <th className="column">平均</th>
+      </>
+    );
   }
 
   function renderHeader(header) {
@@ -98,19 +117,32 @@ function App() {
   }
 
   function renderRows(rows, headers) {
-    return rows.map((row, index) => renderRowColumns(row, index, headers));
+    return (
+      <>
+        {rows.map((row, index) => renderRowColumns(row, index, headers))}
+        {renderHighestColumns(rows, headers)}
+      </>
+    );
   }
 
   function renderRowColumns(row, rowk, headers) {
-    const average =
+    const average = Math.floor(
       Object.values(row.values).reduce((a, b) => parseInt(a) + parseInt(b), 0) /
-      headers.length;
+        headers.length
+    );
 
     return (
       <tr>
-        <td className="column">{row.label}</td>
+        <td className="column scenario">
+          <input
+            type="checkbox"
+            value={row.visible}
+            onChange={(e) => onVisibleChange(row)}
+          />
+          {row.label}
+        </td>
         {headers.map((header) => renderRowColumn(row, rowk, header))}
-        <td>{average}</td>
+        <td className="column input">{average}</td>
       </tr>
     );
   }
@@ -122,10 +154,28 @@ function App() {
           className="input"
           value={row.values[header.key]}
           type="number"
+          min={0}
+          max={5}
           onChange={(e) => onChange(rowk, header.key, e.target.value)}
         />
       </td>
     );
+  }
+
+  function renderHighestColumns(rows, headers) {
+    return (
+      <tr>
+        <td className="column scenario">最高分</td>
+        {headers.map((header) => renderHighestColumn(rows, header))}
+      </tr>
+    );
+  }
+
+  function renderHighestColumn(rows, header) {
+    const max = Math.max(
+      ...rows.map((row) => parseInt(row.values[header.key]) || 0)
+    );
+    return <td className="column input max">{max}</td>;
   }
 }
 

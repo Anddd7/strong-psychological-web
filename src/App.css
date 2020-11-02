@@ -1,3 +1,19 @@
+.chart-app {
+  width: 800px;
+  margin: auto;
+  background-color: white;
+  padding: 10px;
+}
+
+.inputs {
+  margin: 0 10px;
+  border: 2px solid;
+}
+
+.inputs .table {
+  width: 100%;
+}
+
 .inputs .table thead {
   background-color: coral;
   color: white;
@@ -7,9 +23,22 @@
   text-align: center;
 }
 .inputs .table .column .input {
-  width: 50px;
+  width: 90%;
+  font-size: 20px;
+  text-align: center;
+}
+.inputs .table .max {
+  height: 30px;
+  color: red;
+}
+.inputs .table .scenario {
+  width: 80px;
+  text-align: left;
 }
 
 .result {
+  margin: 10px;
+  padding: 10px;
   text-align: center;
+  background-color: aliceblue;
 }

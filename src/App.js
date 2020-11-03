@@ -32,7 +32,7 @@ function App() {
   return (
     <Router>
       <Header />
-      <Container fixed className={classes.content}>
+      <Container fixed maxWidth="md" className={classes.content}>
         <Switch>
           <Route path="/tools">
             <Tools />
@@ -52,38 +52,28 @@ function App() {
 function Header() {
   const history = useHistory();
   const classes = useStyles();
-  const [value, setValue] = useState("dashboard");
+  const [value, setValue] = useState(history.location.pathname);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    if (newValue === "dashboard") {
-      history.push("/");
-    } else {
-      history.push("/" + newValue);
-    }
+    history.push(newValue);
   };
 
   return (
     <div className={classes.header}>
-      {/* <div style={{ width: 500, margin: "auto" }}> */}
       <BottomNavigation value={value} onChange={handleChange} showLabels>
-        <BottomNavigationAction
-          label="主页"
-          value="dashboard"
-          icon={<RestoreIcon />}
-        />
+        <BottomNavigationAction label="主页" value="/" icon={<RestoreIcon />} />
         <BottomNavigationAction
           label="工具"
-          value="tools"
+          value="/tools"
           icon={<LocationOnIcon />}
         />
         <BottomNavigationAction
           label="我的"
-          value="home"
+          value="/home"
           icon={<FavoriteIcon />}
         />
       </BottomNavigation>
-      {/* </div> */}
     </div>
   );
 }

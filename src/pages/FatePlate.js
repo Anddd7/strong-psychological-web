@@ -11,19 +11,19 @@ function initValues(dimensions) {
 }
 
 const dimensions = [
-  { key: "a", label: "A 生命" },
-  { key: "b", label: "B 生理" },
-  { key: "c", label: "C 心理" },
-  { key: "d", label: "D 生活" },
-  { key: "e", label: "E 经济" },
-  { key: "f", label: "F 社会" },
+  { key: "live", label: "A 生命" },
+  { key: "physiological", label: "B 生理" },
+  { key: "psychological", label: "C 心理" },
+  { key: "life", label: "D 生活" },
+  { key: "economic", label: "E 经济" },
+  { key: "social", label: "F 社会" },
 ];
 const scenarios = [
-  { key: "a", label: "职业", values: initValues(dimensions) },
-  { key: "b", label: "人际关系", values: initValues(dimensions) },
-  { key: "c", label: "工作环境", values: initValues(dimensions) },
-  { key: "d", label: "乘客", values: initValues(dimensions) },
-  { key: "e", label: "家庭", values: initValues(dimensions) },
+  { key: "job", label: "职业", values: initValues(dimensions) },
+  { key: "relationship", label: "人际关系", values: initValues(dimensions) },
+  { key: "workspace", label: "工作环境", values: initValues(dimensions) },
+  { key: "passenger", label: "乘客", values: initValues(dimensions) },
+  { key: "family", label: "家庭", values: initValues(dimensions) },
 ];
 
 function modifyTargetRow(currentRow, targetRow, callback) {
@@ -36,25 +36,31 @@ function modifyTargetRow(currentRow, targetRow, callback) {
 const useStyles = makeStyles({
   bg: {
     backgroundColor: "white",
-    padding:20
+    padding: 20,
   },
   inputs: {
     margin: "0 10px",
-    border: "2px solid",
+    // border: "2px solid blanchedalmond",
+    boxShadow: "0px 0px 5px 5px blanchedalmond",
   },
   table: {
     width: "100%",
     "& th": {
       width: 80,
+      height: 30,
       textAlign: "center",
+      backgroundColor: "blanchedalmond",
     },
     "& td": {
       width: 80,
+      height: 30,
       textAlign: "center",
     },
   },
+  scenario: {},
   input: {
     fontSize: 20,
+    width: 55,
     textAlign: "center",
   },
   max: {
@@ -66,10 +72,14 @@ const useStyles = makeStyles({
     float: "left",
   },
   result: {
-    margin: 10,
-    padding: 10,
+    margin: "20px 10px",
+    // padding: 10,
     textAlign: "center",
-    backgroundColor: "aliceblue",
+  },
+  statement: {
+    border: "1px solid blanchedalmond",
+    boxShadow: "0px 0px 5px 5px blanchedalmond",
+    marginBottom: 20,
   },
 });
 
@@ -119,12 +129,14 @@ function FatePlate() {
         </table>
       </div>
       <div className={classes.result}>
-        <h2>幸福盘</h2>
-        <p>
-          让我们一起打开人生的幸福盘
-          <br />
-          寻找幸福, 创造幸福, 开启人生的幸福之旅!
-        </p>
+        <div className={classes.statement}>
+          <h2>幸福盘</h2>
+          <p>
+            让我们一起打开人生的幸福盘
+            <br />
+            寻找幸福, 创造幸福, 开启人生的幸福之旅!
+          </p>
+        </div>
         <Radar
           width={400}
           height={400}
@@ -157,7 +169,7 @@ function FatePlate() {
   }
 
   function renderHeader(header) {
-    return <th>{header.label}</th>;
+    return <th key={header.key}>{header.label}</th>;
   }
 
   function renderRows(rows, headers) {
@@ -177,14 +189,14 @@ function FatePlate() {
 
     return (
       <tr>
-        <td>
+        <td className={classes.scenario}>
           <input
             type="checkbox"
             value={row.visible}
             className={classes.checkbox}
             onChange={(e) => onVisibleChange(row)}
           />
-          {row.label}
+          <span>{row.label}</span>
         </td>
         {headers.map((header) => renderRowColumn(row, header))}
         <td className={classes.input}>{average}</td>
@@ -193,8 +205,9 @@ function FatePlate() {
   }
 
   function renderRowColumn(row, header) {
+    const key = row.key + "-" + header.key;
     return (
-      <td>
+      <td key={key}>
         <input
           className={classes.input}
           value={row.values[header.key]}
@@ -212,7 +225,7 @@ function FatePlate() {
       <tr>
         <td className={classes.scenario}>
           <input type="checkbox" disabled className={classes.checkbox} />
-          最高分
+          <span>最高分</span>
         </td>
         {headers.map((header) => renderHighestColumn(rows, header))}
       </tr>
@@ -223,7 +236,12 @@ function FatePlate() {
     const max = Math.max(
       ...rows.map((row) => parseInt(row.values[header.key]) || 0)
     );
-    return <td className={classes.max}>{max}</td>;
+    const key = header.key + "-max";
+    return (
+      <td key={key} className={classes.max}>
+        {max}
+      </td>
+    );
   }
 }
 

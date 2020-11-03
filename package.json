@@ -1,4 +1,5 @@
 {
+  "homepage": "https://anddd7.github.io/test-chart",
   "name": "test-chart",
   "version": "0.1.0",
   "private": true,
@@ -19,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "yarn run build",
-    "deploy": "gh-pages -b gh-pages -d build"
+    "deploy": "gh-pages -b gh-pages -f -d build"
   },
   "eslintConfig": {
     "extends": [

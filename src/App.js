@@ -7,11 +7,13 @@ import {
 } from "react-router-dom";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import RestoreIcon from "@material-ui/icons/Restore";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
+
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import HomeIcon from "@material-ui/icons/Home";
+import DonutSmallIcon from "@material-ui/icons/DonutSmall";
+
 import FatePlate from "./pages/FatePlate";
 
 const useStyles = makeStyles({
@@ -62,16 +64,20 @@ function Header() {
   return (
     <div className={classes.header}>
       <BottomNavigation value={value} onChange={handleChange} showLabels>
-        <BottomNavigationAction label="主页" value="/" icon={<RestoreIcon />} />
+        <BottomNavigationAction
+          label="主页"
+          value="/"
+          icon={<DashboardIcon />}
+        />
         <BottomNavigationAction
           label="工具"
           value="/tools"
-          icon={<LocationOnIcon />}
+          icon={<DonutSmallIcon />}
         />
         <BottomNavigationAction
           label="我的"
           value="/home"
-          icon={<FavoriteIcon />}
+          icon={<HomeIcon />}
         />
       </BottomNavigation>
     </div>

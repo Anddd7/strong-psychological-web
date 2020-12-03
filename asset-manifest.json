@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/strong-psychological-web/static/css/main.17ac8338.chunk.css",
+    "main.js": "/strong-psychological-web/static/js/main.bef82d00.chunk.js",
+    "main.js.map": "/strong-psychological-web/static/js/main.bef82d00.chunk.js.map",
+    "runtime-main.js": "/strong-psychological-web/static/js/runtime-main.9380421c.js",
+    "runtime-main.js.map": "/strong-psychological-web/static/js/runtime-main.9380421c.js.map",
+    "static/js/2.c2cd3a65.chunk.js": "/strong-psychological-web/static/js/2.c2cd3a65.chunk.js",
+    "static/js/2.c2cd3a65.chunk.js.map": "/strong-psychological-web/static/js/2.c2cd3a65.chunk.js.map",
+    "static/js/3.791c8346.chunk.js": "/strong-psychological-web/static/js/3.791c8346.chunk.js",
+    "static/js/3.791c8346.chunk.js.map": "/strong-psychological-web/static/js/3.791c8346.chunk.js.map",
+    "index.html": "/strong-psychological-web/index.html",
+    "static/css/main.17ac8338.chunk.css.map": "/strong-psychological-web/static/css/main.17ac8338.chunk.css.map",
+    "static/js/2.c2cd3a65.chunk.js.LICENSE.txt": "/strong-psychological-web/static/js/2.c2cd3a65.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9380421c.js",
+    "static/js/2.c2cd3a65.chunk.js",
+    "static/css/main.17ac8338.chunk.css",
+    "static/js/main.bef82d00.chunk.js"
+  ]
+}
